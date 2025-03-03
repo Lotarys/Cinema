@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Seats {
+public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +24,5 @@ public class Seats {
 
     @ManyToOne
     @JoinColumn(name = "hall_id", referencedColumnName = "id", nullable = false)
-    private Halls hall;
+    private Hall hall;
 }

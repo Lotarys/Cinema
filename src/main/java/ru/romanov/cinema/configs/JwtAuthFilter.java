@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.romanov.cinema.entites.Users;
+import ru.romanov.cinema.entites.User;
 import ru.romanov.cinema.services.JWTService;
 import ru.romanov.cinema.services.UserDetailsServiceImpl;
 
@@ -42,7 +42,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
         login = jwtService.extractLogin(token);
         if (login != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Users user = userDetailsServiceImpl.loadUserByUsername(login);
+            User user = userDetailsServiceImpl.loadUserByUsername(login);
             if (jwtService.isTokenValid(token, user)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         user,

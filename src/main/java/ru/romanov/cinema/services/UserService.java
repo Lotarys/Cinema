@@ -12,13 +12,11 @@ import org.springframework.stereotype.Service;
 import ru.romanov.cinema.dtos.LoginDTO;
 import ru.romanov.cinema.dtos.UserDTO;
 import ru.romanov.cinema.entites.Role;
-import ru.romanov.cinema.entites.Users;
+import ru.romanov.cinema.entites.User;
 import ru.romanov.cinema.exceptions.UserAlreadyExistsException;
 import ru.romanov.cinema.exceptions.UserCreationException;
 import ru.romanov.cinema.repositories.RoleRepository;
-import ru.romanov.cinema.repositories.UsersRepository;
-
-import java.sql.Date;
+import ru.romanov.cinema.repositories.UserRepository;
 
 
 @Slf4j
@@ -26,12 +24,12 @@ import java.sql.Date;
 public class UserService {
 
     private final PasswordEncoder passwordEncoder;
-    private final UsersRepository usersRepo;
+    private final UserRepository usersRepo;
     private final RoleRepository roleRepo;
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
 
-    public UserService(PasswordEncoder passwordEncoder, UsersRepository usersRepo, RoleRepository roleRepo, AuthenticationManager authenticationManager, JWTService jwtService) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository usersRepo, RoleRepository roleRepo, AuthenticationManager authenticationManager, JWTService jwtService) {
         this.passwordEncoder = passwordEncoder;
         this.usersRepo = usersRepo;
         this.roleRepo = roleRepo;
@@ -44,7 +42,7 @@ public class UserService {
         if (usersRepo.existsByEmail(userDTO.email())) {
             throw new UserAlreadyExistsException("User with email '" + userDTO.email() + "' already exists");
         }
-        Users user = createUserEntity(userDTO);
+        User user = createUserEntity(userDTO);
         try {
             usersRepo.save(user);
         } catch (DataIntegrityViolationException ex) {
@@ -55,7 +53,7 @@ public class UserService {
     }
 
     public String authenticateUser(LoginDTO loginDTO) {
-        Users user = (Users) authenticationManager.authenticate(
+        User user = (User) authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDTO.login(),
                         loginDTO.password()
@@ -65,8 +63,8 @@ public class UserService {
         return jwtService.generateToken(user);
     }
 
-    private Users createUserEntity(UserDTO dto) {
-        return Users.builder()
+    private User createUserEntity(UserDTO dto) {
+        return User.builder()
                 .email(dto.email())
                 .password(passwordEncoder.encode(dto.password()))
                 .role(checkRole(dto))

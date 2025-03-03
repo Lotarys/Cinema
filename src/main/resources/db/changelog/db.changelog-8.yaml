@@ -14,17 +14,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: user_email
+                  name: email
                   type: varchar(100)
                   constraints:
                     nullable: false
               - column:
                   name: screening_id
-                  type: bigint
-                  constraints:
-                    nullable: false
-              - column:
-                  name: seat_id
                   type: bigint
                   constraints:
                     nullable: false
@@ -43,6 +38,16 @@ databaseChangeLog:
                   type: decimal(10,2)
                   constraints:
                     nullable: false
+              - column:
+                  name: seat_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: true
         - addForeignKeyConstraint:
             baseTableName: tickets
             baseColumnNames: seat_id
@@ -57,3 +62,10 @@ databaseChangeLog:
             referencedTableName: screenings
             referencedColumnNames: id
             onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: tickets
+            baseColumnNames: user_id
+            constraintName: fk_tickets_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: SET NULL

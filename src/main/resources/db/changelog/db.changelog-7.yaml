@@ -28,10 +28,22 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
+              - column:
+                  name: hall_id
+                  type: bigint
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: screenings
             baseColumnNames: movie_id
             constraintName: fk_screenings_movies
             referencedTableName: movies
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: screenings
+            baseColumnNames: hall_id
+            constraintName: fk_screenings_halls
+            referencedTableName: halls
             referencedColumnNames: id
             onDelete: CASCADE

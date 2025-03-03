@@ -1,12 +1,20 @@
 package ru.romanov.cinema.entites;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "tickets")
-public class Tickets {
+public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +24,7 @@ public class Tickets {
     private String userEmail;
 
     @Column(name = "purchase_at", nullable = false)
-    private Timestamp purchaseAt;
+    private LocalDateTime purchaseAt;
 
     @Column(name = "status", nullable = false)
     private String status;
@@ -26,10 +34,14 @@ public class Tickets {
 
     @ManyToOne
     @JoinColumn(name = "screening_id", referencedColumnName = "id", nullable = false)
-    private Screenings screening;
+    private Screening screening;
 
     @ManyToOne
-    @JoinColumn(name = "seats_id", referencedColumnName = "id", nullable = false)
-    private Seats seats;
+    @JoinColumn(name = "seat_id", referencedColumnName = "id", nullable = false)
+    private Seat seat;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
+    private User user;
 
 }

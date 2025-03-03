@@ -3,21 +3,21 @@ package ru.romanov.cinema.services;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.romanov.cinema.entites.Users;
-import ru.romanov.cinema.repositories.UsersRepository;
+import ru.romanov.cinema.entites.User;
+import ru.romanov.cinema.repositories.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
 
-    public UserDetailsServiceImpl(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public Users loadUserByUsername(String login) throws UsernameNotFoundException {
-        return usersRepository.findByEmail(login)
+    public User loadUserByUsername(String login) throws UsernameNotFoundException {
+        return userRepository.findByEmail(login)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

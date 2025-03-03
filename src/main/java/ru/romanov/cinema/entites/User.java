@@ -15,7 +15,7 @@ import java.util.Collections;
 @Data
 @NoArgsConstructor
 @Builder
-public class Users implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,7 +6,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.romanov.cinema.entites.Users;
+import ru.romanov.cinema.entites.User;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class JWTService {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    public String generateToken(Users user) {
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
         return Jwts.builder()
                 .claims()
@@ -33,7 +33,7 @@ public class JWTService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, Users user) {
+    public boolean isTokenValid(String token, User user) {
         final String username = extractLogin(token);
         return (username.equals(user.getUsername())) && !isTokenExpired(token);
     }
