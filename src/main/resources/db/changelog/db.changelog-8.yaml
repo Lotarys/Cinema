@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-tickets
+      author: lotary
+      changes:
+        - createTable:
+            tableName: tickets
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_email
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: screening_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: seat_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: purchased_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: tickets
+            baseColumnNames: seat_id
+            constraintName: fk_tickets_seat
+            referencedTableName: seats
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: tickets
+            baseColumnNames: screening_id
+            constraintName: fk_tickets_screening
+            referencedTableName: screenings
+            referencedColumnNames: id
+            onDelete: CASCADE

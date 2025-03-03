@@ -1,1 +1,21 @@
-spring.application.name=cinema
+spring:
+  application:
+    name: blog
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cinema
+    username: postgres
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/master.yaml
+server:
+  port: 8080
+jwt:
+  secret: 5007cbe87e2807243289f5cec99a57364348226c638e09d8dc008ae99e3918cd
