@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
@@ -20,17 +21,17 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_email", nullable = false)
-    private String userEmail;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-    @Column(name = "purchase_at", nullable = false)
+    @Column(name = "purchased_at", nullable = false)
     private LocalDateTime purchaseAt;
 
     @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "price", nullable = false)
-    private double price;
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "screening_id", referencedColumnName = "id", nullable = false)

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.romanov.cinema.entites.Movie;
 import ru.romanov.cinema.repositories.MovieRepository;
@@ -33,6 +34,7 @@ public class MovieService {
                 .orElseThrow(() -> new EntityNotFoundException("Movie with title " + title + " not found"));
     }
 
+    @Cacheable(value = "moviesByTitle", key = "#title")
     public Movie getMovieById(Long id) {
         log.info("Getting movie by id: {}", id);
         return movieRepository.findById(id)

@@ -6,8 +6,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.romanov.cinema.entites.Screening;
 
-import java.util.List;
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface ScreeningRepository extends JpaRepository<Screening, Long> {
@@ -16,4 +16,5 @@ public interface ScreeningRepository extends JpaRepository<Screening, Long> {
     List<Screening> findByStartTimeDate(@Param("date") LocalDate date);
 
     List<Screening> findByMovieId(Long movieId);
+
 }

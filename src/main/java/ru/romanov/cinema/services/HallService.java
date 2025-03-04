@@ -13,11 +13,10 @@ import ru.romanov.cinema.repositories.HallRepository;
 public class HallService {
     private final HallRepository hallRepository;
 
-    public Hall findHallById(Long id){
+    public Hall getHallById(Long id){
         log.info("Find hall with id {}", id);
         return hallRepository.findById(id)
                 .orElseThrow(()->
                         new EntityNotFoundException("Hall with id " + id + " not found"));
     }
-
 }

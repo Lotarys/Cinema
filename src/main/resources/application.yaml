@@ -1,21 +1,29 @@
 spring:
   application:
-    name: blog
+    name: cinema-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/cinema
-    username: postgres
-    password: 123
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST}
+      port: 6379
+      repositories:
+        enabled: false
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/master.yaml
+  cache:
+    type: redis
+
 server:
   port: 8080
+
 jwt:
-  secret: 5007cbe87e2807243289f5cec99a57364348226c638e09d8dc008ae99e3918cd
+  secret: ${JWT_SECRET}

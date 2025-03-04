@@ -11,6 +11,7 @@ import ru.romanov.cinema.entites.Ticket;
 import ru.romanov.cinema.repositories.TicketRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +25,11 @@ public class TicketService {
         log.info("Get ticket with id {}", id);
         return ticketRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Ticket with id " + id + " not found!"));
+    }
+
+    public List<Ticket> getAllUserTickets(Long userId) {
+        log.info("Get all tickets for user {}", userId);
+        return ticketRepository.findByUserId(userId);
     }
 
     public Ticket bookTicket(TicketDTO ticketDTO) {
@@ -45,7 +51,7 @@ public class TicketService {
         }
         log.info("Booking ticket for screening {} and seat {}", ticketDTO.screeningId(), ticketDTO.seatId());
         Ticket ticket = Ticket.builder()
-                .userEmail(ticketDTO.userEmail())
+                .email(ticketDTO.email())
                 .purchaseAt(LocalDateTime.now())
                 .status("BOOKED")
                 .screening(screening)
