@@ -6,14 +6,16 @@ public record ProfileDTO(
         String email,
         String firstName,
         String lastName,
-        String phone
+        String phone,
+        RoleName role
 ) {
     public static ProfileDTO fromUser(User user) {
         return new ProfileDTO(
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getPhone()
+                user.getPhone(),
+                user.getRole().getName()
         );
     }
 }

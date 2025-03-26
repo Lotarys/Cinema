@@ -18,8 +18,8 @@ import java.util.List;
 public class MovieService {
     private final MovieRepository movieRepository;
 
-    public List<String> getAllTitles() {
-        return new ArrayList<>(movieRepository.findAllTitles());
+    public List<Movie> findAllMovies() {
+        return new ArrayList<>(movieRepository.findAll());
     }
 
     @Transactional
@@ -28,13 +28,7 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public Movie getMovieByTitle(String title) {
-        log.info("Getting movie by title: {}", title);
-        return movieRepository.findByTitle(title)
-                .orElseThrow(() -> new EntityNotFoundException("Movie with title " + title + " not found"));
-    }
-
-    @Cacheable(value = "moviesByTitle", key = "#title")
+    @Cacheable(value = "moviesById", key = "#id")
     public Movie getMovieById(Long id) {
         log.info("Getting movie by id: {}", id);
         return movieRepository.findById(id)

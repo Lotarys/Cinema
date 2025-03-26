@@ -1,5 +1,6 @@
 package ru.romanov.cinema.entites;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class Ticket {
     private String email;
 
     @Column(name = "purchased_at", nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime purchaseAt;
 
     @Column(name = "status", nullable = false)

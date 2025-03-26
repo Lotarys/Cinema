@@ -1,0 +1,196 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-10-screenings
+      author: lotary
+      changes:
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-20 10:00:00"
+              - column:
+                  name: price
+                  value: 450
+              - column:
+                  name: movie_id
+                  value: 1
+              - column:
+                  name: hall_id
+                  value: 2
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-20 13:00:00"
+              - column:
+                  name: price
+                  value: 350
+              - column:
+                  name: movie_id
+                  value: 1
+              - column:
+                  name: hall_id
+                  value: 1
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-20 18:00:00"
+              - column:
+                  name: price
+                  value: 400
+              - column:
+                  name: movie_id
+                  value: 1
+              - column:
+                  name: hall_id
+                  value: 1
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-20 13:30:00"
+              - column:
+                  name: price
+                  value: 650
+              - column:
+                  name: movie_id
+                  value: 2
+              - column:
+                  name: hall_id
+                  value: 2
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-20 16:45:00"
+              - column:
+                  name: price
+                  value: 300
+              - column:
+                  name: movie_id
+                  value: 3
+              - column:
+                  name: hall_id
+                  value: 2
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-20 19:00:00"
+              - column:
+                  name: price
+                  value: 300
+              - column:
+                  name: movie_id
+                  value: 4
+              - column:
+                  name: hall_id
+                  value: 1
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-21 11:00:00"
+              - column:
+                  name: price
+                  value: 350
+              - column:
+                  name: movie_id
+                  value: 5
+              - column:
+                  name: hall_id
+                  value: 3
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-21 14:15:00"
+              - column:
+                  name: price
+                  value: 375
+              - column:
+                  name: movie_id
+                  value: 6
+              - column:
+                  name: hall_id
+                  value: 2
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-21 17:30:00"
+              - column:
+                  name: price
+                  value: 400
+              - column:
+                  name: movie_id
+                  value: 7
+              - column:
+                  name: hall_id
+                  value: 3
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-21 20:00:00"
+              - column:
+                  name: price
+                  value: 425
+              - column:
+                  name: movie_id
+                  value: 8
+              - column:
+                  name: hall_id
+                  value: 1
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-22 12:00:00"
+              - column:
+                  name: price
+                  value: 400
+              - column:
+                  name: movie_id
+                  value: 9
+              - column:
+                  name: hall_id
+                  value: 2
+
+        - insert:
+            tableName: screenings
+            columns:
+              - column:
+                  name: start_time
+                  value: "2025-05-22 21:00:00"
+              - column:
+                  name: price
+                  value: 600
+              - column:
+                  name: movie_id
+                  value: 10
+              - column:
+                  name: hall_id
+                  value: 3

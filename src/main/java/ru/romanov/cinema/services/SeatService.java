@@ -16,13 +16,17 @@ public class SeatService {
     private final SeatRepository seatRepository;
     private final ScreeningService screeningService;
 
+    public List<Seat> getSeatsByIds(List<Long> seatIds) {
+        return seatRepository.findAllById(seatIds);
+    }
+
     public Seat getSeat(Long id) {
         log.info("Getting seat with id {}", id);
         return seatRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Seat with id " + id + " not found"));
     }
 
-    public List<Seat> getAvailableSeat(Long screeningId) {
+    public List<Seat> getAvailableSeats(Long screeningId) {
         Long hallId = screeningService.getScreening(screeningId).getHall().getId();
         log.info("Getting available seat for screening {}", screeningId);
         return seatRepository.findAvailableSeats(screeningId, hallId);

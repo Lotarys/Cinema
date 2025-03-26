@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-halls
+      author: lotary
+      changes:
+        - insert:
+            tableName: halls
+            columns:
+              - column:
+                  name: name
+                  value: "Зал 1"
+              - column:
+                  name: total_rows
+                  value: 15
+              - column:
+                  name: seats_per_row
+                  value: 20
+
+        - insert:
+            tableName: halls
+            columns:
+              - column:
+                  name: name
+                  value: "Зал 2"
+              - column:
+                  name: total_rows
+                  value: 12
+              - column:
+                  name: seats_per_row
+                  value: 18
+
+        - insert:
+            tableName: halls
+            columns:
+              - column:
+                  name: name
+                  value: "Зал 3"
+              - column:
+                  name: total_rows
+                  value: 10
+              - column:
+                  name: seats_per_row
+                  value: 25
+
+        - insert:
+            tableName: halls
+            columns:
+              - column:
+                  name: name
+                  value: "Зал 4"
+              - column:
+                  name: total_rows
+                  value: 8
+              - column:
+                  name: seats_per_row
+                  value: 15
+

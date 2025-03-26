@@ -28,8 +28,8 @@ public class Movie {
     @Column(name = "age_rating", nullable = false)
     private String ageRating;
 
-    @Column(name = "release_date", nullable = false)
-    private String releaseDate;
+    @Column(name = "release_year", nullable = false)
+    private String releaseYear;
 
     @Column(name = "description", nullable = false)
     private String description;

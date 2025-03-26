@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: populate-seats-for-all-halls
+      author: lotary
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO seats (row_number, seat_number, hall_id)
+              SELECT rows.n, seats.n, halls.id
+              FROM halls
+              CROSS JOIN LATERAL generate_series(1, halls.total_rows) AS rows(n)
+              CROSS JOIN LATERAL generate_series(1, halls.seats_per_row) AS seats(n);

@@ -8,8 +8,10 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.romanov.cinema.entites.Screening;
+import ru.romanov.cinema.exceptions.ConflictException;
 import ru.romanov.cinema.repositories.ScreeningRepository;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,12 +23,19 @@ public class ScreeningService {
     private final ScreeningRepository screeningRepository;
 
 
-    @Cacheable(value = "Screenings", key = "'screening_' + #id")
+    @Cacheable(value = "screenings", key = "'screening_' + #id")
     public Screening getScreening(Long id) {
         log.info("Get screening by id {}", id);
         return screeningRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Screening with id " + id + " not found"));
     }
+
+    //TODO: create key
+    @Cacheable(value = "datesOfScreenings", key = "'datesOfScreenings' ")
+    public List<LocalDate> getDatesOfScreenings() {
+        return screeningRepository.findDatesOfScreenings().stream().map(Date::toLocalDate).toList();
+    }
+
 
     @Cacheable(value = "screeningsByDate", key = "'date_' + #dateTime")
     public List<Screening> getScreeningsByDate(LocalDate dateTime) {
@@ -41,14 +50,14 @@ public class ScreeningService {
     }
 
     @Transactional
-    @CacheEvict(value = {"screeningsByDate", "screeningsByMovieId"}, allEntries = true)
+    @CacheEvict(value = {"screeningsByDate", "screeningsByMovieId", "datesOfScreenings", "screenings"}, allEntries = true)
     public Screening addScreening(Screening screening) {
         log.info("Add screening {}", screening);
         return screeningRepository.save(screening);
     }
 
     @Transactional
-    @CacheEvict(value = {"screeningsByDate", "screeningsByMovieId"}, allEntries = true)
+    @CacheEvict(value = {"screeningsByDate", "screeningsByMovieId", "datesOfScreenings", "screenings"}, allEntries = true)
     public Screening updateScreening(Long screeningId, Screening screening) {
         log.info("Update screening {}", screening);
         if (!screeningRepository.existsById(screeningId)) {
@@ -62,5 +71,16 @@ public class ScreeningService {
                 screening.getHall()
         );
         return screeningRepository.save(updatedScreening);
+    }
+
+    private void validateScreeningTime(Screening screening) {
+        boolean exists = screeningRepository.existsByHallAndStartTimeBetween(
+                screening.getHall(),
+                screening.getStartTime().minusHours(2),
+                screening.getStartTime().plusHours(2)
+        );
+        if (exists) {
+            throw new ConflictException("Сеанс пересекается с существующим");
+        }
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import ru.romanov.cinema.dtos.LoginDTO;
 import ru.romanov.cinema.dtos.ProfileDTO;
+import ru.romanov.cinema.dtos.UpdateProfileRequest;
 import ru.romanov.cinema.dtos.UserDTO;
 import ru.romanov.cinema.entites.Ticket;
 import ru.romanov.cinema.entites.User;
@@ -55,4 +56,10 @@ public class UserController {
     public ResponseEntity<List<Ticket>> getPurchases(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(ticketService.getAllUserTickets(user.getId()));
     }
+
+    @PatchMapping("/update-profile")
+    public ResponseEntity<ProfileDTO> updateUser(@AuthenticationPrincipal User user, @Valid @RequestBody UpdateProfileRequest updateProfileRequest) {
+        return ResponseEntity.ok(userService.updateUser(user.getId(), updateProfileRequest));
+    }
+
 }

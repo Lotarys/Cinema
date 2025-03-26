@@ -1,0 +1,44 @@
+services:
+  cinema-app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/cinema
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123
+      - SPRING_DATA_REDIS_HOST=redis
+      - JWT_SECRET=5007cbe87e2807243289f5cec99a57364348226c638e09d8dc008ae99e3918cd
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - cinema-network
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: cinema
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cinema-network
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - cinema-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  cinema-network:
+    driver: bridge

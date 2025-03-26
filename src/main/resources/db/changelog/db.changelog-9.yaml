@@ -1,0 +1,206 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-10-movies
+      author: lotary
+      changes:
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: Inception
+              - column:
+                  name: duration
+                  value: 148
+              - column:
+                  name: genre
+                  value: Sci-Fi
+              - column:
+                  name: age_rating
+                  value: 12
+              - column:
+                  name: release_year
+                  value: '2010'
+              - column:
+                  name: description
+                  value: A thief who steals corporate secrets through dream-sharing technology
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: The Dark Knight
+              - column:
+                  name: duration
+                  value: 152
+              - column:
+                  name: genre
+                  value: Action
+              - column:
+                  name: age_rating
+                  value: 12
+              - column:
+                  name: release_year
+                  value: '2008'
+              - column:
+                  name: description
+                  value: Batman faces his greatest challenge yet against the Joker
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: Interstellar
+              - column:
+                  name: duration
+                  value: 169
+              - column:
+                  name: genre
+                  value: Sci-Fi
+              - column:
+                  name: age_rating
+                  value: 12
+              - column:
+                  name: release_year
+                  value: '2014'
+              - column:
+                  name: description
+                  value: Explorers travel through a wormhole in search of a new home for humanity
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: The Matrix
+              - column:
+                  name: duration
+                  value: 136
+              - column:
+                  name: genre
+                  value: Sci-Fi
+              - column:
+                  name: age_rating
+                  value: 18
+              - column:
+                  name: release_year
+                  value: '1999'
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: Forrest Gump
+              - column:
+                  name: duration
+                  value: 142
+              - column:
+                  name: genre
+                  value: Drama
+              - column:
+                  name: age_rating
+                  value: 12
+              - column:
+                  name: release_year
+                  value: '1994'
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: Gladiator
+              - column:
+                  name: duration
+                  value: 155
+              - column:
+                  name: genre
+                  value: Action
+              - column:
+                  name: age_rating
+                  value: 18
+              - column:
+                  name: release_year
+                  value: '2000'
+              - column:
+                  name: description
+                  value: A former Roman General seeks justice in the gladiatorial arena
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: Titanic
+              - column:
+                  name: duration
+                  value: 195
+              - column:
+                  name: genre
+                  value: Drama
+              - column:
+                  name: age_rating
+                  value: 12
+              - column:
+                  name: release_year
+                  value: '1997'
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: The Avengers
+              - column:
+                  name: duration
+                  value: 143
+              - column:
+                  name: genre
+                  value: Action
+              - column:
+                  name: age_rating
+                  value: 12
+              - column:
+                  name: release_year
+                  value: '2012'
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: Jurassic Park
+              - column:
+                  name: duration
+                  value: 127
+              - column:
+                  name: genre
+                  value: Adventure
+              - column:
+                  name: age_rating
+                  value: 12
+              - column:
+                  name: release_year
+                  value: '1993'
+
+        - insert:
+            tableName: movies
+            columns:
+              - column:
+                  name: title
+                  value: Pulp Fiction
+              - column:
+                  name: duration
+                  value: 154
+              - column:
+                  name: genre
+                  value: Crime
+              - column:
+                  name: age_rating
+                  value: 18
+              - column:
+                  name: release_year
+                  value: '1994'

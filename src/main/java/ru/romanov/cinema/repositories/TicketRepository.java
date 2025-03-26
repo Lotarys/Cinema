@@ -10,4 +10,6 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
     boolean existsByScreeningIdAndSeatIdAndStatus(Long screeningId, Long seatId, String status);
     List<Ticket> findByUserId(Long userId);
+
+    List<Ticket> findByScreeningIdAndSeatIdInAndStatus(Long screeningId, List<Long> seatIds, String status);
 }

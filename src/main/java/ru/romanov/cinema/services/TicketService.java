@@ -1,6 +1,7 @@
 package ru.romanov.cinema.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class TicketService {
         return ticketRepository.findByUserId(userId);
     }
 
+    @Transactional
     public Ticket bookTicket(TicketDTO ticketDTO) {
         Screening screening = screeningService.getScreening(ticketDTO.screeningId());
         Seat seat = seatService.getSeat(ticketDTO.seatId());

@@ -1,6 +1,7 @@
 package ru.romanov.cinema.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/screenings")
+@Slf4j
 public class ScreeningController {
 
     private final ScreeningService screeningService;
@@ -25,6 +27,11 @@ public class ScreeningController {
         return ResponseEntity.ok(screeningService.getScreeningsByDate(dateTime));
     }
 
+    @GetMapping("/getDatesOfScreenings")
+    public ResponseEntity<List<LocalDate>> getDatesOfScreenings() {
+        return ResponseEntity.ok(screeningService.getDatesOfScreenings());
+    }
+
     @GetMapping("/filter-by-movie/{movieId}")
     public ResponseEntity<List<Screening>> getScreeningsByMovieId(@PathVariable(name = "movieId") Long movieId) {
         return ResponseEntity.ok(screeningService.getScreeningsByMovieId(movieId));
@@ -32,7 +39,7 @@ public class ScreeningController {
 
     @GetMapping("/{screeningId}/available-seats")
     public ResponseEntity<List<Seat>> getAvailableSeats(@PathVariable(name = "screeningId") Long screeningId) {
-        return ResponseEntity.ok(seatService.getAvailableSeat(screeningId));
+        return ResponseEntity.ok(seatService.getAvailableSeats(screeningId));
     }
 
 
@@ -40,6 +47,7 @@ public class ScreeningController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add-screening")
     public ResponseEntity<Screening> addScreening(@RequestBody Screening screening) {
+        log.info("Received screening: {}", screening);
         return ResponseEntity.ok(screeningService.addScreening(screening));
     }
 

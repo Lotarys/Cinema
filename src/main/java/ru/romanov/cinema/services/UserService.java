@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.romanov.cinema.dtos.LoginDTO;
+import ru.romanov.cinema.dtos.ProfileDTO;
+import ru.romanov.cinema.dtos.UpdateProfileRequest;
 import ru.romanov.cinema.dtos.UserDTO;
 import ru.romanov.cinema.entites.Role;
 import ru.romanov.cinema.entites.User;
@@ -55,7 +57,7 @@ public class UserService {
     public String authenticateUser(LoginDTO loginDTO) {
         User user = (User) authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginDTO.login(),
+                        loginDTO.email(),
                         loginDTO.password()
                 )
         ).getPrincipal();
@@ -69,6 +71,17 @@ public class UserService {
                 .password(passwordEncoder.encode(dto.password()))
                 .role(checkRole(dto))
                 .build();
+    }
+
+    @Transactional
+    public ProfileDTO updateUser(Long userId, UpdateProfileRequest updateProfileRequest) {
+        User user = usersRepo.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        user.setEmail(updateProfileRequest.email());
+        user.setFirstName(updateProfileRequest.firstName());
+        user.setLastName(updateProfileRequest.lastName());
+        user.setPhone(updateProfileRequest.phone());
+        return ProfileDTO.fromUser(usersRepo.save(user));
     }
 
     private Role checkRole(UserDTO userDTO) {

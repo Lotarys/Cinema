@@ -29,6 +29,14 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", ex.getMessage()));
     }
 
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<?> handleConflictException(ConflictException ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("error", ex.getMessage()));
+    }
+
+
     @ExceptionHandler(UserCreationException.class)
     public ResponseEntity<?> handleUserCreationException(UserCreationException ex) {
         return ResponseEntity

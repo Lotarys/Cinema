@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.romanov.cinema.entites.Hall;
 import ru.romanov.cinema.services.HallService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/halls")
@@ -17,7 +19,12 @@ public class HallController {
     private final HallService hallService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Hall> getAllHalls(@PathVariable Long id) {
+    public ResponseEntity<Hall> getHall(@PathVariable Long id) {
         return ResponseEntity.ok(hallService.getHallById(id));
+    }
+
+    @GetMapping("/allHalls")
+    public ResponseEntity<List<Hall>> getAllHalls() {
+        return ResponseEntity.ok(hallService.findAllHalls());
     }
 }
