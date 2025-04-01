@@ -30,8 +30,7 @@ public class ScreeningService {
                 .orElseThrow(() -> new EntityNotFoundException("Screening with id " + id + " not found"));
     }
 
-    //TODO: create key
-    @Cacheable(value = "datesOfScreenings", key = "'datesOfScreenings' ")
+
     public List<LocalDate> getDatesOfScreenings() {
         return screeningRepository.findDatesOfScreenings().stream().map(Date::toLocalDate).toList();
     }
@@ -50,14 +49,15 @@ public class ScreeningService {
     }
 
     @Transactional
-    @CacheEvict(value = {"screeningsByDate", "screeningsByMovieId", "datesOfScreenings", "screenings"}, allEntries = true)
+    @CacheEvict(value = {"screeningsByDate", "screeningsByMovieId", "screenings"}, allEntries = true)
     public Screening addScreening(Screening screening) {
+        validateScreeningTime(screening);
         log.info("Add screening {}", screening);
         return screeningRepository.save(screening);
     }
 
     @Transactional
-    @CacheEvict(value = {"screeningsByDate", "screeningsByMovieId", "datesOfScreenings", "screenings"}, allEntries = true)
+    @CacheEvict(value = {"screeningsByDate", "screeningsByMovieId", "screenings"}, allEntries = true)
     public Screening updateScreening(Long screeningId, Screening screening) {
         log.info("Update screening {}", screening);
         if (!screeningRepository.existsById(screeningId)) {

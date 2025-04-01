@@ -20,7 +20,7 @@ databaseChangeLog:
                   value: 12
               - column:
                   name: release_year
-                  value: '2010'
+                  value: 2010
               - column:
                   name: description
                   value: A thief who steals corporate secrets through dream-sharing technology
@@ -42,7 +42,7 @@ databaseChangeLog:
                   value: 12
               - column:
                   name: release_year
-                  value: '2008'
+                  value: 2008
               - column:
                   name: description
                   value: Batman faces his greatest challenge yet against the Joker
@@ -64,7 +64,7 @@ databaseChangeLog:
                   value: 12
               - column:
                   name: release_year
-                  value: '2014'
+                  value: 2014
               - column:
                   name: description
                   value: Explorers travel through a wormhole in search of a new home for humanity
@@ -86,7 +86,7 @@ databaseChangeLog:
                   value: 18
               - column:
                   name: release_year
-                  value: '1999'
+                  value: 1999
 
         - insert:
             tableName: movies
@@ -105,7 +105,7 @@ databaseChangeLog:
                   value: 12
               - column:
                   name: release_year
-                  value: '1994'
+                  value: 1994
 
         - insert:
             tableName: movies
@@ -124,7 +124,7 @@ databaseChangeLog:
                   value: 18
               - column:
                   name: release_year
-                  value: '2000'
+                  value: 2000
               - column:
                   name: description
                   value: A former Roman General seeks justice in the gladiatorial arena
@@ -146,7 +146,7 @@ databaseChangeLog:
                   value: 12
               - column:
                   name: release_year
-                  value: '1997'
+                  value: 1997
 
         - insert:
             tableName: movies
@@ -165,7 +165,7 @@ databaseChangeLog:
                   value: 12
               - column:
                   name: release_year
-                  value: '2012'
+                  value: 2012
 
         - insert:
             tableName: movies
@@ -184,7 +184,7 @@ databaseChangeLog:
                   value: 12
               - column:
                   name: release_year
-                  value: '1993'
+                  value: 1993
 
         - insert:
             tableName: movies
@@ -203,4 +203,4 @@ databaseChangeLog:
                   value: 18
               - column:
                   name: release_year
-                  value: '1994'
+                  value: 1994

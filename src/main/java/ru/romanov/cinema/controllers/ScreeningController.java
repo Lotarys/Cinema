@@ -43,7 +43,6 @@ public class ScreeningController {
     }
 
 
-    //TODO: create a dto class for request body
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add-screening")
     public ResponseEntity<Screening> addScreening(@RequestBody Screening screening) {
@@ -51,7 +50,6 @@ public class ScreeningController {
         return ResponseEntity.ok(screeningService.addScreening(screening));
     }
 
-    //TODO: create a dto class for request body
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update-screening/{screeningId}")
     public ResponseEntity<Screening> updateScreening(@PathVariable(name = "screeningId") Long screeningId, @RequestBody Screening screening) {

@@ -35,7 +35,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: release_year
-                  type: varchar(255)
+                  type: int
                   constraints:
                     nullable: false
               - column:

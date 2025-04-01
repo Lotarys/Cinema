@@ -46,7 +46,9 @@ public class SecurityConfig {
                 }))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
+
                         request
+                                .requestMatchers("/api/users/my-profile").authenticated()
                                 .anyRequest().permitAll())
                 .sessionManagement(sessionManagement ->
                         sessionManagement

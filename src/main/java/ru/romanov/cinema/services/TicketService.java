@@ -5,10 +5,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.romanov.cinema.dtos.BulkBookingRequest;
 import ru.romanov.cinema.dtos.TicketDTO;
 import ru.romanov.cinema.entites.Screening;
 import ru.romanov.cinema.entites.Seat;
 import ru.romanov.cinema.entites.Ticket;
+import ru.romanov.cinema.entites.User;
 import ru.romanov.cinema.repositories.TicketRepository;
 
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final ScreeningService screeningService;
     private final SeatService seatService;
+    private final UserService userService;
 
     public Ticket getTicket(Long id) {
         log.info("Get ticket with id {}", id);
@@ -31,6 +34,67 @@ public class TicketService {
     public List<Ticket> getAllUserTickets(Long userId) {
         log.info("Get all tickets for user {}", userId);
         return ticketRepository.findByUserId(userId);
+    }
+
+    @Transactional
+    public List<Ticket> bookMultiple(BulkBookingRequest request) {
+        log.info("Starting bulk booking for screening {} and seats {}", request.screeningId(), request.seatIds());
+
+        Screening screening = screeningService.getScreening(request.screeningId());
+        log.debug("Retrieved screening: {}", screening.getId());
+
+        List<Seat> seats = seatService.getSeatsByIds(request.seatIds());
+        log.debug("Retrieved {} seats out of requested {}", seats.size(), request.seatIds().size());
+
+        User user = request.userId() != null ?
+                userService.getById(request.userId()) :
+                null;
+        if (user != null) {
+            log.debug("Booking for user: {}", user.getId());
+        } else {
+            log.debug("Booking without registered user");
+        }
+
+        if (seats.size() != request.seatIds().size()) {
+            log.error("Some seats not found. Requested: {}, found: {}", request.seatIds().size(), seats.size());
+            throw new IllegalArgumentException("Некоторые места не найдены");
+        }
+
+        seats.forEach(seat -> {
+            if (!seat.getHall().getId().equals(screening.getHall().getId())) {
+                log.error("Seat {} doesn't belong to screening hall {}", seat.getId(), screening.getHall().getId());
+                throw new IllegalArgumentException("Место не принадлежит залу");
+            }
+        });
+
+        List<Long> bookedSeats = ticketRepository.findBookedSeats(
+                request.screeningId(),
+                request.seatIds()
+        );
+        if (!bookedSeats.isEmpty()) {
+            log.error("Seats already booked: {}", bookedSeats);
+            throw new IllegalStateException("Места уже заняты: " + bookedSeats);
+        }
+
+        log.info("Creating tickets for {} seats", seats.size());
+        List<Ticket> createdTickets = seats.stream()
+                .map(seat -> {
+                    log.debug("Creating ticket for seat {}", seat.getId());
+                    return Ticket.builder()
+                            .email(request.email())
+                            .purchaseAt(LocalDateTime.now())
+                            .status("BOOKED")
+                            .screening(screening)
+                            .seat(seat)
+                            .price(screening.getPrice())
+                            .user(user)
+                            .build();
+                })
+                .map(ticketRepository::save)
+                .toList();
+
+        log.info("Successfully created {} tickets for screening {}", createdTickets.size(), screening.getId());
+        return createdTickets;
     }
 
     @Transactional

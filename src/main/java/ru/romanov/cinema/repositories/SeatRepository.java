@@ -15,4 +15,6 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
             "(SELECT t.seat.id FROM Ticket t WHERE t.screening.id = :screeningId AND t.status = 'BOOKED')")
     List<Seat> findAvailableSeats(@Param("screeningId") Long screeningId,
                                   @Param("hallId") Long hallId);
+
+    List<Seat> findByHallId(Long hallId);
 }

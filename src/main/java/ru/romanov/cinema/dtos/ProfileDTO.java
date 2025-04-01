@@ -3,6 +3,7 @@ package ru.romanov.cinema.dtos;
 import ru.romanov.cinema.entites.User;
 
 public record ProfileDTO(
+        Long id,
         String email,
         String firstName,
         String lastName,
@@ -11,6 +12,7 @@ public record ProfileDTO(
 ) {
     public static ProfileDTO fromUser(User user) {
         return new ProfileDTO(
+                user.getId(),
                 user.getEmail(),
                 user.getFirstName(),
                 user.getLastName(),

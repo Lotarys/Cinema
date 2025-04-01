@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   cinema-app:
     build: .
@@ -10,10 +12,13 @@ services:
       - SPRING_DATA_REDIS_HOST=redis
       - JWT_SECRET=5007cbe87e2807243289f5cec99a57364348226c638e09d8dc008ae99e3918cd
     depends_on:
-      - redis
-      - postgres
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - cinema-network
+    restart: unless-stopped
 
   postgres:
     image: postgres:16
@@ -25,15 +30,20 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - cinema-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: "redis:alpine"
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
     networks:
       - cinema-network
+    command: redis-server --save 60 1 --loglevel warning
+    restart: unless-stopped
 
 volumes:
   postgres_data:

@@ -39,6 +39,15 @@ public class UserService {
         this.jwtService = jwtService;
     }
 
+    public User getById(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        } else {
+            return usersRepo.findById(userId)
+                    .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        }
+    }
+
     @Transactional
     public String createUser(UserDTO userDTO) {
         if (usersRepo.existsByEmail(userDTO.email())) {

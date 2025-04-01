@@ -2,6 +2,7 @@ package ru.romanov.cinema.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.romanov.cinema.entites.Movie;
 import ru.romanov.cinema.services.MovieService;
@@ -16,6 +17,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @PostMapping("/add-movie")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
         return ResponseEntity.ok(movieService.addMovie(movie));
     }

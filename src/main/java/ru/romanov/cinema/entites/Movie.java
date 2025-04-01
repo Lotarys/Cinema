@@ -29,7 +29,7 @@ public class Movie {
     private String ageRating;
 
     @Column(name = "release_year", nullable = false)
-    private String releaseYear;
+    private Integer releaseYear;
 
     @Column(name = "description", nullable = false)
     private String description;
