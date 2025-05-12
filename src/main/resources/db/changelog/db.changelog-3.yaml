@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-table-users
-      author: lotary
+      author: romanov
       changes:
         - createTable:
             tableName: users
@@ -45,3 +45,6 @@ databaseChangeLog:
             referencedTableName: roles
             referencedColumnNames: id
             onDelete: CASCADE
+
+
+

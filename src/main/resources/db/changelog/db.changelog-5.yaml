@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-table-movies
-      author: lotary
+      author: romanov
       changes:
         - createTable:
             tableName: movies
@@ -38,6 +38,5 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-              - column:
-                  name: description
-                  type: varchar(255)
+
+

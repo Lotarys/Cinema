@@ -30,7 +30,4 @@ public class Movie {
 
     @Column(name = "release_year", nullable = false)
     private Integer releaseYear;
-
-    @Column(name = "description", nullable = false)
-    private String description;
 }

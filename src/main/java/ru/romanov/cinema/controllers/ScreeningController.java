@@ -42,7 +42,6 @@ public class ScreeningController {
         return ResponseEntity.ok(seatService.getAvailableSeats(screeningId));
     }
 
-
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add-screening")
     public ResponseEntity<Screening> addScreening(@RequestBody Screening screening) {

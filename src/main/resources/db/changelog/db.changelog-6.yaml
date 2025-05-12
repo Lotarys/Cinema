@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-table-seats
-      author: lotary
+      author: romanov
       changes:
         - createTable:
             tableName: seats
@@ -34,3 +34,4 @@ databaseChangeLog:
             referencedTableName: halls
             referencedColumnNames: id
             onDelete: CASCADE
+

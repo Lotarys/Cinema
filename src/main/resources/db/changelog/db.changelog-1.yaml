@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: create-table-roles
-      author: lotary
+      author: romanov
       changes:
         - createTable:
             tableName: roles
@@ -19,3 +19,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
+
+
+

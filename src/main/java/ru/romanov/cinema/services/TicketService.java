@@ -25,12 +25,6 @@ public class TicketService {
     private final SeatService seatService;
     private final UserService userService;
 
-    public Ticket getTicket(Long id) {
-        log.info("Get ticket with id {}", id);
-        return ticketRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Ticket with id " + id + " not found!"));
-    }
-
     public List<Ticket> getAllUserTickets(Long userId) {
         log.info("Get all tickets for user {}", userId);
         return ticketRepository.findByUserId(userId);

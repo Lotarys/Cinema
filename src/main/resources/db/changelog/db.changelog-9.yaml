@@ -21,9 +21,6 @@ databaseChangeLog:
               - column:
                   name: release_year
                   value: 2010
-              - column:
-                  name: description
-                  value: A thief who steals corporate secrets through dream-sharing technology
 
         - insert:
             tableName: movies
@@ -43,9 +40,6 @@ databaseChangeLog:
               - column:
                   name: release_year
                   value: 2008
-              - column:
-                  name: description
-                  value: Batman faces his greatest challenge yet against the Joker
 
         - insert:
             tableName: movies
@@ -65,9 +59,6 @@ databaseChangeLog:
               - column:
                   name: release_year
                   value: 2014
-              - column:
-                  name: description
-                  value: Explorers travel through a wormhole in search of a new home for humanity
 
         - insert:
             tableName: movies
@@ -125,9 +116,6 @@ databaseChangeLog:
               - column:
                   name: release_year
                   value: 2000
-              - column:
-                  name: description
-                  value: A former Roman General seeks justice in the gladiatorial arena
 
         - insert:
             tableName: movies
