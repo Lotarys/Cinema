@@ -4,7 +4,7 @@ import ru.romanov.cinema.entites.User;
 
 import java.math.BigDecimal;
 
-public record TicketDTO(
+public record BookingDTO(
         String email,
         BigDecimal price,
         Long screeningId,

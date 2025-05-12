@@ -37,10 +37,10 @@ databaseChangeLog:
                   value: "Зал 3"
               - column:
                   name: total_rows
-                  value: 10
+                  value: 17
               - column:
                   name: seats_per_row
-                  value: 25
+                  value: 15
 
         - insert:
             tableName: halls

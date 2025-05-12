@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.romanov.cinema.entites.Hall;
 import ru.romanov.cinema.entites.Seat;
 import ru.romanov.cinema.services.HallService;
-import ru.romanov.cinema.services.SeatService;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ import java.util.List;
 public class HallController {
 
     private final HallService hallService;
-    private final SeatService seatService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Hall> getHall(@PathVariable Long id) {

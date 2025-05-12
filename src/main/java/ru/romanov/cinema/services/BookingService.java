@@ -1,17 +1,16 @@
 package ru.romanov.cinema.services;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.romanov.cinema.dtos.BulkBookingRequest;
-import ru.romanov.cinema.dtos.TicketDTO;
+import ru.romanov.cinema.dtos.BookingDTO;
 import ru.romanov.cinema.entites.Screening;
 import ru.romanov.cinema.entites.Seat;
-import ru.romanov.cinema.entites.Ticket;
+import ru.romanov.cinema.entites.Booking;
 import ru.romanov.cinema.entites.User;
-import ru.romanov.cinema.repositories.TicketRepository;
+import ru.romanov.cinema.repositories.BookingRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,20 +18,21 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class TicketService {
-    private final TicketRepository ticketRepository;
+public class BookingService {
+    private final BookingRepository bookingRepository;
     private final ScreeningService screeningService;
     private final SeatService seatService;
     private final UserService userService;
 
-    public List<Ticket> getAllUserTickets(Long userId) {
-        log.info("Get all tickets for user {}", userId);
-        return ticketRepository.findByUserId(userId);
+    public List<Booking> getAllUserBookings(Long userId) {
+        log.info("Get all bookings for user {}", userId);
+        return bookingRepository.findByUserId(userId);
     }
 
     @Transactional
-    public List<Ticket> bookMultiple(BulkBookingRequest request) {
-        log.info("Starting bulk booking for screening {} and seats {}", request.screeningId(), request.seatIds());
+    public List<Booking> bookMultiple(BulkBookingRequest request) {
+        log.info("Starting bulk booking for screening {} and seats {}", request.screeningId(),
+                request.seatIds());
 
         Screening screening = screeningService.getScreening(request.screeningId());
         log.debug("Retrieved screening: {}", screening.getId());
@@ -56,12 +56,13 @@ public class TicketService {
 
         seats.forEach(seat -> {
             if (!seat.getHall().getId().equals(screening.getHall().getId())) {
-                log.error("Seat {} doesn't belong to screening hall {}", seat.getId(), screening.getHall().getId());
+                log.error("Seat {} doesn't belong to screening hall {}", seat.getId(),
+                        screening.getHall().getId());
                 throw new IllegalArgumentException("Место не принадлежит залу");
             }
         });
 
-        List<Long> bookedSeats = ticketRepository.findBookedSeats(
+        List<Long> bookedSeats = bookingRepository.findBookedSeats(
                 request.screeningId(),
                 request.seatIds()
         );
@@ -71,10 +72,10 @@ public class TicketService {
         }
 
         log.info("Creating tickets for {} seats", seats.size());
-        List<Ticket> createdTickets = seats.stream()
+        List<Booking> createdBookings = seats.stream()
                 .map(seat -> {
                     log.debug("Creating ticket for seat {}", seat.getId());
-                    return Ticket.builder()
+                    return Booking.builder()
                             .email(request.email())
                             .purchaseAt(LocalDateTime.now())
                             .status("BOOKED")
@@ -84,41 +85,41 @@ public class TicketService {
                             .user(user)
                             .build();
                 })
-                .map(ticketRepository::save)
+                .map(bookingRepository::save)
                 .toList();
 
-        log.info("Successfully created {} tickets for screening {}", createdTickets.size(), screening.getId());
-        return createdTickets;
+        log.info("Successfully created {} tickets for screening {}", createdBookings.size(), screening.getId());
+        return createdBookings;
     }
 
     @Transactional
-    public Ticket bookTicket(TicketDTO ticketDTO) {
-        Screening screening = screeningService.getScreening(ticketDTO.screeningId());
-        Seat seat = seatService.getSeat(ticketDTO.seatId());
+    public Booking book(BookingDTO bookingDTO) {
+        Screening screening = screeningService.getScreening(bookingDTO.screeningId());
+        Seat seat = seatService.getSeat(bookingDTO.seatId());
 
         if (!seat.getHall().getId().equals(screening.getHall().getId())) {
-            log.error("Seat {} doesn't belong to screening hall {}", ticketDTO.seatId(), ticketDTO.screeningId());
+            log.error("Seat {} doesn't belong to screening hall {}", bookingDTO.seatId(), bookingDTO.screeningId());
             throw new IllegalArgumentException("seat doesn't belong to screening hall");
         }
 
-        if (ticketRepository.existsByScreeningIdAndSeatIdAndStatus(
-                ticketDTO.screeningId(),
-                ticketDTO.seatId(),
+        if (bookingRepository.existsByScreeningIdAndSeatIdAndStatus(
+                bookingDTO.screeningId(),
+                bookingDTO.seatId(),
                 "BOOKED"
         )) {
-            log.error("Seat {} is already booked", ticketDTO.seatId());
+            log.error("Seat {} is already booked", bookingDTO.seatId());
             throw new IllegalStateException("Seat is already booked");
         }
-        log.info("Booking ticket for screening {} and seat {}", ticketDTO.screeningId(), ticketDTO.seatId());
-        Ticket ticket = Ticket.builder()
-                .email(ticketDTO.email())
+        log.info("Booking ticket for screening {} and seat {}", bookingDTO.screeningId(), bookingDTO.seatId());
+        Booking booking = Booking.builder()
+                .email(bookingDTO.email())
                 .purchaseAt(LocalDateTime.now())
                 .status("BOOKED")
                 .screening(screening)
                 .seat(seat)
                 .price(screening.getPrice())
-                .user(ticketDTO.user())
+                .user(bookingDTO.user())
                 .build();
-        return ticketRepository.save(ticket);
+        return bookingRepository.save(booking);
     }
 }

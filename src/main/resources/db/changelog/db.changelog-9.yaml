@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: title
-                  value: Inception
+                  value: Начало
               - column:
                   name: duration
                   value: 148
@@ -17,17 +17,14 @@ databaseChangeLog:
                   value: Sci-Fi
               - column:
                   name: age_rating
-                  value: 12
-              - column:
-                  name: release_year
-                  value: 2010
+                  value: 12+
 
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: The Dark Knight
+                  value: Темный рыцарь
               - column:
                   name: duration
                   value: 152
@@ -36,17 +33,14 @@ databaseChangeLog:
                   value: Action
               - column:
                   name: age_rating
-                  value: 12
-              - column:
-                  name: release_year
-                  value: 2008
+                  value: 12+
 
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: Interstellar
+                  value: Интерстеллар
               - column:
                   name: duration
                   value: 169
@@ -55,17 +49,14 @@ databaseChangeLog:
                   value: Sci-Fi
               - column:
                   name: age_rating
-                  value: 12
-              - column:
-                  name: release_year
-                  value: 2014
+                  value: 12+
 
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: The Matrix
+                  value: Матрица
               - column:
                   name: duration
                   value: 136
@@ -74,17 +65,13 @@ databaseChangeLog:
                   value: Sci-Fi
               - column:
                   name: age_rating
-                  value: 18
-              - column:
-                  name: release_year
-                  value: 1999
-
+                  value: 18+
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: Forrest Gump
+                  value: Форест гамп
               - column:
                   name: duration
                   value: 142
@@ -93,17 +80,14 @@ databaseChangeLog:
                   value: Drama
               - column:
                   name: age_rating
-                  value: 12
-              - column:
-                  name: release_year
-                  value: 1994
+                  value: 12+
 
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: Gladiator
+                  value: Гладиатор
               - column:
                   name: duration
                   value: 155
@@ -112,17 +96,14 @@ databaseChangeLog:
                   value: Action
               - column:
                   name: age_rating
-                  value: 18
-              - column:
-                  name: release_year
-                  value: 2000
+                  value: 18+
 
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: Titanic
+                  value: Титаник
               - column:
                   name: duration
                   value: 195
@@ -131,17 +112,14 @@ databaseChangeLog:
                   value: Drama
               - column:
                   name: age_rating
-                  value: 12
-              - column:
-                  name: release_year
-                  value: 1997
+                  value: 12+
 
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: The Avengers
+                  value: Мстители
               - column:
                   name: duration
                   value: 143
@@ -150,17 +128,14 @@ databaseChangeLog:
                   value: Action
               - column:
                   name: age_rating
-                  value: 12
-              - column:
-                  name: release_year
-                  value: 2012
+                  value: 12+
 
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: Jurassic Park
+                  value: Парк Юрского Периода
               - column:
                   name: duration
                   value: 127
@@ -169,17 +144,14 @@ databaseChangeLog:
                   value: Adventure
               - column:
                   name: age_rating
-                  value: 12
-              - column:
-                  name: release_year
-                  value: 1993
+                  value: 12+
 
         - insert:
             tableName: movies
             columns:
               - column:
                   name: title
-                  value: Pulp Fiction
+                  value: Криминальное чтиво
               - column:
                   name: duration
                   value: 154
@@ -188,7 +160,4 @@ databaseChangeLog:
                   value: Crime
               - column:
                   name: age_rating
-                  value: 18
-              - column:
-                  name: release_year
-                  value: 1994
+                  value: 18+

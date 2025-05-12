@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-table-tickets
+      id: create-table-bookings
       author: romanov
       changes:
         - createTable:
-            tableName: tickets
+            tableName: bookings
             columns:
               - column:
                   name: id
@@ -49,23 +49,23 @@ databaseChangeLog:
                   constraints:
                     nullable: true
         - addForeignKeyConstraint:
-            baseTableName: tickets
+            baseTableName: bookings
             baseColumnNames: seat_id
-            constraintName: fk_tickets_seat
+            constraintName: fk_bookings_seat
             referencedTableName: seats
             referencedColumnNames: id
             onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseTableName: tickets
+            baseTableName: bookings
             baseColumnNames: screening_id
-            constraintName: fk_tickets_screening
+            constraintName: fk_bookings_screening
             referencedTableName: screenings
             referencedColumnNames: id
             onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseTableName: tickets
+            baseTableName: bookings
             baseColumnNames: user_id
-            constraintName: fk_tickets_user
+            constraintName: fk_bookings_user
             referencedTableName: users
             referencedColumnNames: id
             onDelete: SET NULL

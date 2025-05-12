@@ -51,8 +51,8 @@ public class ScreeningController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update-screening/{screeningId}")
-    public ResponseEntity<Screening> updateScreening(@PathVariable(name = "screeningId") Long screeningId, @RequestBody Screening screening) {
+    public ResponseEntity<Screening> updateScreening(@PathVariable(name = "screeningId") Long screeningId,
+                                                     @RequestBody Screening screening) {
         return ResponseEntity.ok(screeningService.updateScreening(screeningId, screening));
     }
-
 }

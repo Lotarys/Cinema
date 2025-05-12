@@ -27,7 +27,4 @@ public class Movie {
 
     @Column(name = "age_rating", nullable = false)
     private String ageRating;
-
-    @Column(name = "release_year", nullable = false)
-    private Integer releaseYear;
 }

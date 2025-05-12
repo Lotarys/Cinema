@@ -11,9 +11,9 @@ import ru.romanov.cinema.dtos.LoginDTO;
 import ru.romanov.cinema.dtos.ProfileDTO;
 import ru.romanov.cinema.dtos.UpdateProfileRequest;
 import ru.romanov.cinema.dtos.UserDTO;
-import ru.romanov.cinema.entites.Ticket;
+import ru.romanov.cinema.entites.Booking;
 import ru.romanov.cinema.entites.User;
-import ru.romanov.cinema.services.TicketService;
+import ru.romanov.cinema.services.BookingService;
 import ru.romanov.cinema.services.UserService;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final TicketService ticketService;
+    private final BookingService bookingService;
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@Valid @RequestBody UserDTO userDTO) {
@@ -53,12 +53,13 @@ public class UserController {
     }
 
     @GetMapping("/my-purchases")
-    public ResponseEntity<List<Ticket>> getPurchases(@AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(ticketService.getAllUserTickets(user.getId()));
+    public ResponseEntity<List<Booking>> getPurchases(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(bookingService.getAllUserBookings(user.getId()));
     }
 
     @PatchMapping("/update-profile")
-    public ResponseEntity<ProfileDTO> updateUser(@AuthenticationPrincipal User user, @Valid @RequestBody UpdateProfileRequest updateProfileRequest) {
+    public ResponseEntity<ProfileDTO> updateUser(@AuthenticationPrincipal User user,
+                                                 @Valid @RequestBody UpdateProfileRequest updateProfileRequest) {
         return ResponseEntity.ok(userService.updateUser(user.getId(), updateProfileRequest));
     }
 

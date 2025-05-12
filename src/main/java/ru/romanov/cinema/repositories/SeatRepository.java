@@ -12,7 +12,7 @@ import java.util.List;
 public interface SeatRepository extends JpaRepository<Seat, Long> {
 
     @Query("SELECT s FROM Seat s WHERE s.hall.id = :hallId AND s.id NOT IN " +
-            "(SELECT t.seat.id FROM Ticket t WHERE t.screening.id = :screeningId AND t.status = 'BOOKED')")
+            "(SELECT b.seat.id FROM Booking b WHERE b.screening.id = :screeningId AND b.status = 'BOOKED')")
     List<Seat> findAvailableSeats(@Param("screeningId") Long screeningId,
                                   @Param("hallId") Long hallId);
 

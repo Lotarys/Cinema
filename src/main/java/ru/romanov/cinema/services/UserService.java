@@ -31,7 +31,11 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository usersRepo, RoleRepository roleRepo, AuthenticationManager authenticationManager, JWTService jwtService) {
+    public UserService(PasswordEncoder passwordEncoder,
+                       UserRepository usersRepo,
+                       RoleRepository roleRepo,
+                       AuthenticationManager authenticationManager,
+                       JWTService jwtService) {
         this.passwordEncoder = passwordEncoder;
         this.usersRepo = usersRepo;
         this.roleRepo = roleRepo;

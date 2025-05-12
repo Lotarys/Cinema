@@ -31,6 +31,4 @@ public class MovieController {
     public ResponseEntity<List<Movie>> getAllMovies() {
         return ResponseEntity.ok(movieService.findAllMovies());
     }
-
-
 }
